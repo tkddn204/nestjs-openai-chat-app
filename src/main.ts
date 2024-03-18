@@ -7,8 +7,12 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 (async () => {
   const app = await NestFactory.create(AppModule);
 
-  app.use(bodyParser.json({}));
-  app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
+  app.use(bodyParser.json({ limit: '1mb' }));
+  app.useGlobalPipes(
+    new ValidationPipe({
+      // whitelist: true
+    }),
+  );
 
   app.enableVersioning({
     type: VersioningType.URI,
